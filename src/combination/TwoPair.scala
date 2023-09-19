@@ -1,9 +1,9 @@
-package cardValue
-import cards.{CardRankValue, GameCard}
+package combination
+import cards.{CardRankValue, Card}
 
 import scala.annotation.tailrec
 
-case object TwoPair extends Rank {
+case object TwoPair extends Combination {
 
   val firstPairValue: Map[String, Int] = Map("22" -> 1000, "33" -> 2000, "44" -> 3000, "55" -> 4000, "66" -> 5000,
     "77" -> 6000, "88" -> 7000, "99" -> 8000, "TT" -> 9000, "JJ" -> 10000, "QQ" -> 11000, "KK" -> 12000, "AA" -> 13000)
@@ -11,7 +11,7 @@ case object TwoPair extends Rank {
   val secondPairValue: Map[String, Int] = Map("22" -> 50, "33" -> 100, "44" -> 150, "55" -> 200, "66" -> 250,
     "77" -> 300, "88" -> 350, "99" -> 400, "TT" -> 450, "JJ" -> 500, "QQ" -> 550, "KK" -> 600, "AA" -> 650)
 
-  val twoMatches = "(.)\\1{1}"
+  val twoMatches: String = "(.)\\1{1}"
 
   override val startCombValue: Int = 2000000
 
@@ -33,7 +33,7 @@ case object TwoPair extends Rank {
     helper(listOfPair, 0)
   }
 
-  override def checkComb(listOfCards: List[GameCard]): Boolean = {
+  override def checkComb(listOfCards: List[Card]): Boolean = {
     val listRankOfCards: String = listOfCards
       .map(x => x.rank)
       .sorted
@@ -46,7 +46,7 @@ case object TwoPair extends Rank {
       .length > 1
   }
 
-  override def getValueOfComb(listOfCards: List[GameCard]): Int = {
+  override def getValueOfComb(listOfCards: List[Card]): Int = {
     val listOfCardRanks = listOfCards
       .map(x => x.rank)
       .sortBy(CardRankValue.cardRankValue)
