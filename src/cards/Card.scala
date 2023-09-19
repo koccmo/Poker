@@ -1,5 +1,5 @@
 package cards
 
-case class Card(rank: String, suit: String) {
+case class Card(rank: Rank, suit: Suit) {
 
 }
