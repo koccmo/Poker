@@ -1,9 +1,9 @@
-package cardValue
-import cards.{CardRankValue, GameCard}
+package combination
+import cards.{CardRankValue, Card}
 
 case object HighCard {
 
-  def getValueOfComb(listOfCards: List[GameCard]): Int = {
+  def getValueOfComb(listOfCards: List[Card]): Int = {
     val allCardRank: List[String] = listOfCards
       .map(x => x.rank)
       .sortBy(CardRankValue.cardRankValue)

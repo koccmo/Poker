@@ -1,7 +1,7 @@
-package cardValue
-import cards.{CardRankValue, GameCard}
+package combination
+import cards.{CardRankValue, Card}
 
-case object Pair extends Rank {
+case object Pair extends Combination {
 
   val pairValue: Map[String, Int] = Map("22" -> 10000, "33" -> 20000, "44" -> 30000, "55" -> 40000, "66" -> 50000,
     "77" -> 60000, "88" -> 70000, "99" -> 80000, "TT" -> 90000, "JJ" -> 100000, "QQ" -> 110000, "KK" -> 120000, "AA" -> 130000)
@@ -10,7 +10,7 @@ case object Pair extends Rank {
 
   override val startCombValue: Int = 1000000
 
-  override def checkComb(listOfCards: List[GameCard]): Boolean = {
+  override def checkComb(listOfCards: List[Card]): Boolean = {
     val allCardsRanks = listOfCards
       .map(x => x.rank)
       .sortBy(CardRankValue.cardRankValue)
@@ -19,7 +19,7 @@ case object Pair extends Rank {
     oneMatch.r.findAllMatchIn(allCardsRanks).toList.length == 1
   }
 
-  override def getValueOfComb(listOfCards: List[GameCard]): Int = {
+  override def getValueOfComb(listOfCards: List[Card]): Int = {
     val allCardsRanks: String = listOfCards
       .map(x => x.rank)
       .sortBy(CardRankValue.cardRankValue)

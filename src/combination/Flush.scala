@@ -1,16 +1,16 @@
-package cardValue
-import cards.{CardRankValue, GameCard}
+package combination
+import cards.{CardRankValue, Card}
 
-case object Flush extends Rank {
+case object Flush extends Combination {
 
   override val startCombValue: Int = 5000000
 
-  override def checkComb(listOfCards: List[GameCard]): Boolean = {
+  override def checkComb(listOfCards: List[Card]): Boolean = {
     val allCardsSuit: String = listOfCards.map(x => x.suit).mkString.sorted
     allCardsSuit.matches(".*(.)\\1{4}.*")
   }
 
-  override def getValueOfComb(listOfCards: List[GameCard]): Int = {
+  override def getValueOfComb(listOfCards: List[Card]): Int = {
 //    val listOfCardWithSimilarSuit: List[GameCard] = listOfCards
 //      .groupBy(_.suit)
 //      .flatMap { case (_,group) => if(group.length > 1) group else Nil }
@@ -30,7 +30,7 @@ case object Flush extends Rank {
 //    startCombValue + CardRankValue.getValueOfCards(listOfCardWithSimilarSuit.map(x => x.rank).sortBy(CardRankValue.cardRankValue).reverse.take(5))
 ////    startCombValue + sumOfFiveCardsValue
 
-    val highestFiveCardsSimilarSuit: Map[String, List[GameCard]] = listOfCards
+    val highestFiveCardsSimilarSuit: Map[String, List[Card]] = listOfCards
       .groupBy(_.suit)
       .filter(_._2.size >= 5)
 

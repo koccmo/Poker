@@ -1,7 +1,7 @@
-package cardValue
-import cards.{CardRankValue, GameCard}
+package combination
+import cards.{CardRankValue, Card}
 
-case object ThreeOfKind extends Rank {
+case object ThreeOfKind extends Combination {
 
   val threeOfKind: Map[String, Int] = Map("222" -> 1000, "333" -> 2000, "444" -> 3000, "555" -> 4000, "666" -> 5000,
     "777" -> 6000, "888" -> 7000, "999" -> 8000, "TTT" -> 9000, "JJJ" -> 10000, "QQQ" -> 11000, "KKK" -> 12000, "AAA" -> 13000)
@@ -10,7 +10,7 @@ case object ThreeOfKind extends Rank {
 
   override def startCombValue: Int = 3000000
 
-  override def checkComb(listOfCards: List[GameCard]): Boolean = {
+  override def checkComb(listOfCards: List[Card]): Boolean = {
     listOfCards
       .map(x => x.rank)
       .mkString
@@ -18,7 +18,7 @@ case object ThreeOfKind extends Rank {
       .matches(".*(.)\\1{2}.*")
   }
 
-  override def getValueOfComb(listOfCards: List[GameCard]): Int = {
+  override def getValueOfComb(listOfCards: List[Card]): Int = {
     val allCardsRank: String = listOfCards
       .map(x => x.rank)
       .mkString

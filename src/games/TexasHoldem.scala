@@ -1,14 +1,14 @@
 package games
 
 
-import cardValue.{Flush, FourOfAKind, FullHouse, HighCard, Pair, Rank, Straight, StraightFlush, ThreeOfKind, TwoPair}
-import cards.GameCard
+import combination.{Combination, Flush, FourOfAKind, FullHouse, HighCard, Pair, Straight, StraightFlush, ThreeOfKind, TwoPair}
+import cards.Card
 
-import scala.annotation.tailrec
+import scala.annotation._
 
 case object TexasHoldem {
 
-  val listRank = List(StraightFlush, FourOfAKind, FullHouse, Flush, Straight, ThreeOfKind, TwoPair, Pair)
+  val listRank: List[Combination] = List(StraightFlush, FourOfAKind, FullHouse, Flush, Straight, ThreeOfKind, TwoPair, Pair)
 
   def getResult(board: String, hands: List[String]): String = {
 //    val mapHandBoardPlusHand: Map[String, String] = createMapHandWithBoardsCards(board, hands)
@@ -40,15 +40,16 @@ case object TexasHoldem {
     helper(board, hands, Map.empty)
   }
 
-  def convertToCard(text: String): List[GameCard] = {
+  def convertToCard(text: String): List[Card] = {
     for {
       grouped <- text.grouped(2).toList
-      listOfCards <- List.empty[GameCard] :+ GameCard(grouped.split("").head, grouped.split("").tail.head)
+      listOfCards <- List.empty[Card] :+ Card(grouped.split("").head, grouped.split("").tail.head)
     } yield listOfCards
   }
 
 
-  def getValueOfCards(cards: List[GameCard], condition: List[Rank] ): Int = {
+  @tailrec
+  def getValueOfCards(cards: List[Card], condition: List[Combination] ): Int = {
     condition match {
       case head :: _ if head.checkComb(cards)     => head.getValueOfComb(cards)
       case head :: tail if !head.checkComb(cards) => getValueOfCards(cards, tail)
